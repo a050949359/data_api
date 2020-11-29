@@ -10,7 +10,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -36,7 +37,7 @@ Temporary Items
 !.vscode/tasks.json
 !.vscode/launch.json
 *.code-workspace
-
+*/__pycache__
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
