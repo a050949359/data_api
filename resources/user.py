@@ -11,15 +11,15 @@ parser.add_argument("note")
 
 class Users(Resource):
     def db_init(self):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "assignment")
+        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         return db, cursor
 
     def get(self):
         print(Resource)
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "assignment")
+        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
-        sql = """select * from flask_demo where deleted = False"""
+        sql = """select * from users where deleted = False"""
         cursor.execute(sql)
         users = cursor.fetchall()
         db.close()
@@ -44,7 +44,7 @@ class Users(Resource):
         }
 
         sql = """
-            insert into flask_demo
+            insert into users
             (name, gender, birth, note)
             values('{}','{}','{}','{}');
         """.format(user["name"],user["gender"],user["birth"],user["note"])
@@ -59,9 +59,9 @@ class Users(Resource):
 
 class User(Resource):
     def get(self, id):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "assignment")
+        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
-        sql = """select * from flask_demo where id = '{}' and deleted = False""".format(id)
+        sql = """select * from users where id = '{}' and deleted = False""".format(id)
         cursor.execute(sql)
         users = cursor.fetchall()
         db.close()
@@ -76,7 +76,7 @@ class User(Resource):
         return jsonify(response)
 
     def patch(self, id):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "assignment")
+        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         arg = parser.parse_args()
 
@@ -92,7 +92,7 @@ class User(Resource):
             if value != None:
                 query.append(key + '=' + "'{}'".format(value))
         query = ",".join(query)
-        sql = """UPDATE flask_demo SET {} where id = '{}' and deleted = False""".format(query, id)
+        sql = """UPDATE users SET {} where id = '{}' and deleted = False""".format(query, id)
         print(sql)
         result = cursor.execute(sql)
         users = cursor.fetchall()
@@ -105,9 +105,9 @@ class User(Resource):
         return jsonify(response)
 
     def delete(self, id):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "assignment")
+        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
-        sql = """UPDATE flask_demo set deleted = True where id = '{}' and deleted = False""".format(id)
+        sql = """UPDATE users set deleted = True where id = '{}' and deleted = False""".format(id)
         cursor.execute(sql)
         db.commit()
         db.close()
@@ -118,9 +118,9 @@ class User(Resource):
 
         return jsonify(response)
 
-        # db = pymysql.connect("192.168.56.102", "harold", "123456", "assignment")
+        # db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
         # cursor = db.cursor(pymysql.cursors.DictCursor)
-        # sql = """delete from flask_demo where id = '{}'""".format(id)
+        # sql = """delete from users where id = '{}'""".format(id)
         # cursor.execute(sql)
         # db.commit()
         # db.close()
