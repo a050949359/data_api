@@ -91,7 +91,7 @@ def getmoney(account_number):
     return jsonify(response), code 
 
 def get_account(account_number):
-    db = pymysql.connect("192.168.56.102", "harold", "123456", "assignment")
+    db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
     cursor = db.cursor(pymysql.cursors.DictCursor)
     sql = """select * from accounts where account_number = '{}' and deleted = False""".format(account_number)
     cursor.execute(sql)
