@@ -11,13 +11,13 @@ parser.add_argument("note")
 
 class Users(Resource):
     def db_init(self):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         return db, cursor
 
     def get(self):
         print(Resource)
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         sql = """select * from users where deleted = False"""
         cursor.execute(sql)
@@ -59,7 +59,7 @@ class Users(Resource):
 
 class User(Resource):
     def get(self, id):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         sql = """select * from users where id = '{}' and deleted = False""".format(id)
         cursor.execute(sql)
@@ -76,7 +76,7 @@ class User(Resource):
         return jsonify(response)
 
     def patch(self, id):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         arg = parser.parse_args()
 
@@ -105,7 +105,7 @@ class User(Resource):
         return jsonify(response)
 
     def delete(self, id):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         sql = """UPDATE users set deleted = True where id = '{}' and deleted = False""".format(id)
         cursor.execute(sql)
@@ -118,7 +118,7 @@ class User(Resource):
 
         return jsonify(response)
 
-        # db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        # db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         # cursor = db.cursor(pymysql.cursors.DictCursor)
         # sql = """delete from users where id = '{}'""".format(id)
         # cursor.execute(sql)

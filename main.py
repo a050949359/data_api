@@ -91,7 +91,7 @@ def getmoney(account_number):
     return jsonify(response), code 
 
 def get_account(account_number):
-    db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+    db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
     cursor = db.cursor(pymysql.cursors.DictCursor)
     sql = """select * from accounts where account_number = '{}' and deleted = False""".format(account_number)
     cursor.execute(sql)
@@ -113,4 +113,4 @@ def hello(name=None):
     return render_template('hello.html', form=form, name=name)
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host='0.0.0.0')

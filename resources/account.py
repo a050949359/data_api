@@ -8,7 +8,7 @@ parser.add_argument("account_number")
 
 class Accounts(Resource):
     def db_init(self):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         return db, cursor
 
@@ -49,7 +49,7 @@ class Accounts(Resource):
     
 class Account(Resource):
     def db_init(self):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         return db, cursor
 
@@ -66,7 +66,7 @@ class Account(Resource):
         return jsonify(response)
 
     def patch(self, id):
-        db = pymysql.connect("192.168.56.102", "harold", "123456", "flask_demo")
+        db = pymysql.connect("localhost", "harold", "123456", "flask_demo")
         cursor = db.cursor(pymysql.cursors.DictCursor)
         arg = parser.parse_args()
 
